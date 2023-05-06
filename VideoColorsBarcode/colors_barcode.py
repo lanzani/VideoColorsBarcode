@@ -19,7 +19,6 @@ def __opencv_to_pil(image: np.ndarray) -> Image:
 
 
 def __process_frame(pil_image: Image) -> tuple[np.ndarray, list[tuple[int, int, int]]]:
-
     byte_io = io.BytesIO()
     pil_image.save(byte_io, "png")
     byte_io.seek(0)
@@ -44,13 +43,10 @@ def create_palette_from_df(df_palette: pd.DataFrame, color_size: int = 10):
         # Create a new empty image with the size of the palette using pillow
         palette_image = Image.new("RGB", (len(palette) * color_size, 100))
 
-
-
         # Draw a rectangle for each color using pillow
         for i, color in enumerate(palette):
             draw = ImageDraw.Draw(palette_image)
             draw.rectangle([i * color_size, 0, (i + 1) * color_size, 100], fill=color)
-
 
         # Save the image
         palette_image.save(f"palette_{col}.png")
@@ -67,21 +63,25 @@ def sample_dominant_colors(video):
     if not cap.isOpened():
         print("Unable to read video feed")
 
-    # Get the number of frames
+    # Get information about the video
     frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    fps = int(round(cap.get(cv2.CAP_PROP_FPS), 0))
+    duration = frame_count / fps
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     df_palette = pd.DataFrame(columns=[f"color_{i}" for i in range(5)])
 
     # Read every frame and save it
-    # for i in tqdm(range(frame_count)):
-    for i in tqdm(range(500)):
+    for i in tqdm(range(frame_count)):
+    # for i in tqdm(range(500)):
         ret, cv2_frame = cap.read()
 
         if not ret:
             break
 
         # Process frame every 1 second
-        if cap.get(cv2.CAP_PROP_POS_MSEC) % 1000 == 0:
+        if i % fps == 0:
             pil_frame = __opencv_to_pil(cv2_frame)
 
             progress = i / frame_count
