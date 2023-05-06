@@ -18,7 +18,7 @@ def __opencv_to_pil(image: np.ndarray) -> Image:
     return Image.fromarray(color_coverted)
 
 
-def __process_frame(pil_image: Image) -> tuple[np.ndarray, list[tuple[int, int, int]]]:
+def __process_frame(pil_image: Image):
     byte_io = io.BytesIO()
     pil_image.save(byte_io, "png")
     byte_io.seek(0)
