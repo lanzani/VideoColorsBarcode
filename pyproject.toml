@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "videocolorsbarcode"
 version = "0.1.0"
-description = ""
-authors = ["Federico Lanzani <federico.lanzani@outlook.com>"]
+description = "Generates a colors barcode by plotting the average color of each frame of a video."
+authors = ["Federico Lanzani <federico@federicolanzani.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -17,6 +17,9 @@ numpy = "^1.24.2"
 
 
 
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3.1"
 
 [build-system]
 requires = ["poetry-core"]

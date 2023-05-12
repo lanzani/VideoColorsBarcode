@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 
 def save_video_to_disk(bytes_data):
