@@ -6,7 +6,7 @@
 
 ## Description
 This is a simple python script that generates a barcode from a video file. The barcode is created by extracting the
-average color of each frame in the video and plotting it on a canvas. This visually striking representation of the video
+average color of each frame in the video and plotting it on a canvas. This visual representation of the video
 provides a unique way to visualize its color distribution over time.
 
 ## Installation
